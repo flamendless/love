@@ -333,6 +333,314 @@ void showRecordingPermissionMissingDialog()
 	env->DeleteLocalRef(activity);
 }
 
+//Ads
+
+void createBanner(const char *adID,const char *position)
+{
+	std::string ID = (std::string) adID;
+	std::string pos = (std::string) position;
+
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+	jclass clazz (env->GetObjectClass(activity));
+
+	jmethodID method_id = env->GetMethodID(clazz, "createBanner", "(Ljava/lang/String;Ljava/lang/String;)V");
+	jstring ID_jstring = (jstring) env->NewStringUTF(ID.c_str());
+	jstring pos_jstring = (jstring) env->NewStringUTF(pos.c_str());
+
+	env->CallVoidMethod(activity, method_id, ID_jstring, pos_jstring);
+
+	env->DeleteLocalRef(ID_jstring);
+	env->DeleteLocalRef(pos_jstring);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+}
+
+
+void hideBanner()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+	jclass clazz (env->GetObjectClass(activity));
+
+	jmethodID method_id = env->GetMethodID(clazz, "hideBanner", "()V");
+
+	env->CallVoidMethod(activity, method_id);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+}
+
+void showBanner()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+	jclass clazz (env->GetObjectClass(activity));
+
+	jmethodID method_id = env->GetMethodID(clazz, "showBanner", "()V");
+
+	env->CallVoidMethod(activity, method_id);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+}
+
+void requestInterstitial(const char *adID)
+{
+	std::string ID = (std::string) adID;
+
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+	jclass clazz (env->GetObjectClass(activity));
+
+	jmethodID method_id = env->GetMethodID(clazz, "requestInterstitial", "(Ljava/lang/String;)V");
+	jstring ID_jstring = (jstring) env->NewStringUTF(ID.c_str());
+
+	env->CallVoidMethod(activity, method_id, ID_jstring);
+
+	env->DeleteLocalRef(ID_jstring);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+}
+
+bool isInterstitialLoaded()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "isInterstitialLoaded", "()Z");
+
+	jboolean adLoaded = env->CallBooleanMethod(activity, method_id);
+
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return adLoaded;
+}
+
+void showInterstitial()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+	jclass clazz (env->GetObjectClass(activity));
+
+	jmethodID method_id = env->GetMethodID(clazz, "showInterstitial", "()V");
+
+	env->CallVoidMethod(activity, method_id);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+}
+
+
+void requestRewardedAd(const char *adID)
+{
+	std::string ID = (std::string) adID;
+
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+	jclass clazz (env->GetObjectClass(activity));
+
+	jmethodID method_id = env->GetMethodID(clazz, "requestRewardedAd", "(Ljava/lang/String;)V");
+	jstring ID_jstring = (jstring) env->NewStringUTF(ID.c_str());
+
+	env->CallVoidMethod(activity, method_id, ID_jstring);
+
+	env->DeleteLocalRef(ID_jstring);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+}
+
+bool isRewardedAdLoaded()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "isRewardedAdLoaded", "()Z");
+
+	jboolean adLoaded = env->CallBooleanMethod(activity, method_id);
+
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return adLoaded;
+}
+
+void showRewardedAd()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+	jclass clazz (env->GetObjectClass(activity));
+
+	jmethodID method_id = env->GetMethodID(clazz, "showRewardedAd", "()V");
+
+	env->CallVoidMethod(activity, method_id);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+}
+
+void changeEUConsent()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+	jclass clazz (env->GetObjectClass(activity));
+
+	jmethodID method_id = env->GetMethodID(clazz, "changeEUConsent", "()V");
+
+	env->CallVoidMethod(activity, method_id);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+}
+
+std::string getDeviceLanguage()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "getDeviceLanguage",  "()Ljava/lang/String;");
+
+	jstring countryCode = (jstring) env->CallObjectMethod(activity, method_id);
+
+	const char *strPtr = env->GetStringUTFChars(countryCode, 0);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return (std::string) strPtr;
+}
+
+//For callbacks
+
+bool coreInterstitialError()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "coreInterstitialError", "()Z");
+
+	jboolean adHasFailedToLoad = env->CallBooleanMethod(activity, method_id);
+
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return adHasFailedToLoad;
+}
+
+bool coreInterstitialClosed()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "coreInterstitialClosed", "()Z");
+
+	jboolean adHasBeenClosed = env->CallBooleanMethod(activity, method_id);
+
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return adHasBeenClosed;
+}
+
+bool coreRewardedAdError()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "coreRewardedAdError", "()Z");
+
+	jboolean adHasFailedToLoad = env->CallBooleanMethod(activity, method_id);
+
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return adHasFailedToLoad;
+}
+
+bool coreRewardedAdDidStop()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "coreRewardedAdDidStop", "()Z");
+
+	jboolean adHasBeenClosed = env->CallBooleanMethod(activity, method_id);
+
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return adHasBeenClosed;
+}
+
+bool coreRewardedAdDidFinish()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "coreRewardedAdDidFinish", "()Z");
+
+	jboolean videoHasFinishedPlaying = env->CallBooleanMethod(activity, method_id);
+
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return videoHasFinishedPlaying;
+}
+
+std::string coreGetRewardType()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "coreGetRewardType",  "()Ljava/lang/String;");
+
+	jstring rewardType = (jstring) env->CallObjectMethod(activity, method_id);
+
+	const char *strPtr = env->GetStringUTFChars(rewardType, 0);
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return (std::string) strPtr;
+}
+
+double coreGetRewardQuantity()
+{
+	JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
+
+	jobject activity = (jobject) SDL_AndroidGetActivity();
+
+	jclass clazz(env->GetObjectClass(activity));
+	jmethodID method_id = env->GetMethodID(clazz, "coreGetRewardQuantity",  "()D");
+
+	jdouble rewardQty = (jdouble) env->CallDoubleMethod(activity, method_id);
+
+	env->DeleteLocalRef(activity);
+	env->DeleteLocalRef(clazz);
+
+	return static_cast<double>(rewardQty);
+}
+
 /*
  * Helper functions to aid new fusing method
  */
