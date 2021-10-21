@@ -1,5 +1,6 @@
 /**
  * Created by bio1712 for love2d
+ * Modified and updated by flamendless
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any damages
@@ -18,21 +19,19 @@
  * 3. This notice may not be removed or altered from any source distribution.
  **/
 
-#ifndef LOVE_WRAP_ADS_H
-#define LOVE_WRAP_ADS_H
+#ifndef ADMOB_WRAP_ADS_H
+#define ADMOB_WRAP_ADS_H
 
 // LOVE
 #include "Ads.h"
 #include "common/runtime.h"
 
-namespace love
+namespace admob
 {
-namespace ads
-{
-		
-	extern "C" LOVE_EXPORT int luaopen_love_ads(lua_State *L);
-		
-} // ads
-} // love
+	namespace ads
+	{
+		extern "C" LOVE_EXPORT int luaopen_love_ads(lua_State *L);
+	}
+}
 
-#endif // LOVE_WRAP_ADS_H
+#endif // ADMOB_WRAP_ADS_H

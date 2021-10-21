@@ -1,5 +1,6 @@
 /**
  * Created by bio1712 for love2d
+ * Modified and updated by flamendless
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any damages
@@ -18,8 +19,8 @@
  * 3. This notice may not be removed or altered from any source distribution.
  **/
 
-#ifndef LOVE_ADS_H
-#define LOVE_ADS_H
+#ifndef ADMOB_H
+#define ADMOB_H
 
 // LOVE
 #include "common/config.h"
@@ -33,67 +34,43 @@
 #include <SDL_syswm.h>
 #include "window/Window.h"
 
-namespace love
+namespace admob
 {
-namespace ads
-{
-		
-class Ads : public Module
-{
-public:
-			
-	Ads();
-	virtual ~Ads() {}
-			
-	// Implements Module.
-	virtual ModuleType getModuleType() const { return M_ADS; }
-			
-	void test(void) const;
-	
-	void createBanner(const char *adID,const char *position);
-	
-	void hideBanner();
-	
-	void showBanner();
-	
-	bool isInterstitialLoaded();
-	
-	void requestInterstitial(const char *adID);
-	
-	void showInterstitial();
-	
-	bool isRewardedAdLoaded();
-	
-	void requestRewardedAd(const char *adID);
-	
-	void showRewardedAd();
-	
-	std::string getDeviceLanguage();
-	
-	//Private functions for callbacks
-	bool coreInterstitialError();
-	
-	bool coreInterstitialClosed();
-	
-	bool coreRewardedAdError();
-	
-	bool coreRewardedAdDidFinish();
-	
-	std::string coreGetRewardType(); 
-	
-	double coreGetRewardQuantity();
-	
-	bool coreRewardedAdDidStop();
-	
-	void changeEUConsent();
-	
-private:
-	bool hasBannerBeenCreated = false;
-	
-			
-}; // Ads
-	
-} // ads
-} // love
+	namespace ads
+	{
+		class Ads : public love::Module
+		{
+			public:
+				Ads();
+				virtual ~Ads() {}
+				// Implements Module.
+				virtual ModuleType getModuleType() const { return M_ADS; }
+				void test(void) const;
+				void createBanner(const char *adID,const char *position);
+				void hideBanner();
+				void showBanner();
+				bool isInterstitialLoaded();
+				void requestInterstitial(const char *adID);
+				void showInterstitial();
+				bool isRewardedAdLoaded();
+				void requestRewardedAd(const char *adID);
+				void showRewardedAd();
+				std::string getDeviceLanguage();
 
-#endif // LOVE_ADS_H
+				//Private functions for callbacks
+				bool coreInterstitialError();
+				bool coreInterstitialClosed();
+				bool coreRewardedAdError();
+				bool coreRewardedAdDidFinish();
+				std::string coreGetRewardType();
+				double coreGetRewardQuantity();
+				bool coreRewardedAdDidStop();
+				void changeEUConsent();
+
+			private:
+				bool hasBannerBeenCreated = false;
+		};
+	}
+}
+
+#endif // ADMOB_H

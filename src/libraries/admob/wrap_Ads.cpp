@@ -1,5 +1,6 @@
 /**
  * Created by bio1712 for love2d
+ * Modified and updated by flamendless
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any damages
@@ -19,6 +20,8 @@
  **/
 
 // LOVE
+#include "common/Module.h"
+#include "common/runtime.h"
 #include "wrap_Ads.h"
 #include "sdl/Ads.h"
 
@@ -29,12 +32,11 @@ extern "C" {
 	#include "lauxlib.h"
 }
 
-namespace love
+namespace admob
 {
 	namespace ads
 	{
-
-#define instance() (Module::getInstance<Ads>(Module::M_ADS))
+		#define instance() (love::Module::getInstance<Ads>(love::Module::M_ADS))
 
 		int w_test(lua_State *L)
 		{
@@ -63,94 +65,107 @@ namespace love
 			return 0;
 		}
 
-		int w_showInterstitial(lua_State *L) {
+		int w_showInterstitial(lua_State *L)
+		{
 			instance()->showInterstitial();
 			return 0;
 		}
 
-		int w_isInterstitialLoaded(lua_State *L) {
+		int w_isInterstitialLoaded(lua_State *L)
+		{
 			bool ret = instance()->isInterstitialLoaded();
-			luax_pushboolean(L, ret);
+			love::luax_pushboolean(L, ret);
 			printf("%s", ret ? "true" : "false");
 			return 1;
 		}
 
-		int w_requestInterstitial(lua_State *L) {
+		int w_requestInterstitial(lua_State *L)
+		{
 			const char *adID = luaL_checkstring(L, 1);
 			instance()->requestInterstitial(adID);
 			return 0;
 		}
 
-		int w_requestRewardedAd(lua_State *L) {
+		int w_requestRewardedAd(lua_State *L)
+		{
 			const char *adID = luaL_checkstring(L, 1);
 			instance()->requestRewardedAd(adID);
 			return 0;
 		}
 
-		int w_showRewardedAd(lua_State *L) {
+		int w_showRewardedAd(lua_State *L)
+		{
 			instance()->showRewardedAd();
 			return 0;
 		}
 
-		int w_isRewardedAdLoaded(lua_State *L) {
+		int w_isRewardedAdLoaded(lua_State *L)
+		{
 			bool ret = instance()->isRewardedAdLoaded();
-
-			luax_pushboolean(L, ret);
+			love::luax_pushboolean(L, ret);
 			return 1;
 		}
 
-		int w_changeEUConsent(lua_State *L) {
+		int w_changeEUConsent(lua_State *L)
+		{
 			instance()->changeEUConsent();
 			return 0;
 		}
 
-		int w_getDeviceLanguage(lua_State *L) {
+		int w_getDeviceLanguage(lua_State *L)
+		{
 			std::string ret = instance()->getDeviceLanguage();
-			luax_pushstring(L, ret);
+			love::luax_pushstring(L, ret);
 			return 1;
 		}
 
 		//Private functions for callbacks
-
-		int w_coreInterstitialError(lua_State *L) {
+		int w_coreInterstitialError(lua_State *L)
+		{
 			bool ret = instance()->coreInterstitialError();
-			luax_pushboolean(L, ret);
+			love::luax_pushboolean(L, ret);
 			return 1;
 		}
 
-		int w_coreInterstitialClosed(lua_State *L) {
+		int w_coreInterstitialClosed(lua_State *L)
+		{
 			bool ret = instance()->coreInterstitialClosed();
-			luax_pushboolean(L, ret);
+			love::luax_pushboolean(L, ret);
 			return 1;
 		}
 
-		int w_coreRewardedAdError(lua_State *L) {
+		int w_coreRewardedAdError(lua_State *L)
+		{
 			bool ret = instance()->coreRewardedAdError();
-			luax_pushboolean(L, ret);
+			love::luax_pushboolean(L, ret);
 			return 1;
 		}
 
-		int w_coreRewardedAdDidFinish(lua_State *L) {
+		int w_coreRewardedAdDidFinish(lua_State *L)
+		{
 			bool ret = instance()->coreRewardedAdDidFinish();
-			luax_pushboolean(L, ret);
+			love::luax_pushboolean(L, ret);
 			return 1;
 		}
 
-		int w_coreGetRewardType(lua_State *L) {
+		int w_coreGetRewardType(lua_State *L)
+		{
 			std::string ret = instance()->coreGetRewardType();
-			luax_pushstring(L, ret);
+			love::luax_pushstring(L, ret);
 			return 1;
 		}
 
-		int w_coreGetRewardQuantity(lua_State *L) {
+		int w_coreGetRewardQuantity(lua_State *L)
+		{
 			int ret = instance()->coreGetRewardQuantity();
 			lua_pushnumber(L, ret);
 			return 1;
 		}
 
-		int w_coreRewardedAdDidStop(lua_State *L) {
+		int w_coreRewardedAdDidStop(lua_State *L)
+		{
 			bool ret = instance()->coreRewardedAdDidStop();
-			luax_pushboolean(L, ret);
+			love::luax_pushboolean(L, ret);
 			return 1;
 		}
 
@@ -186,20 +201,19 @@ namespace love
 			if (instance == nullptr)
 			{
 				//instance = new love::ads::sdl::Ads();
-				luax_catchexcept(L, [&](){ instance = new love::ads::sdl::Ads(); });
+				love::luax_catchexcept(L, [&](){ instance = new admob::ads::sdl::Ads(); });
 			}
 			else
 				instance->retain();
 
-			WrappedModule w;
+			love::WrappedModule w;
 			w.module = instance;
 			w.name = "ads";
-			w.type = &Module::type;
+			w.type = &love::Module::type;
 			w.functions = functions;
 			w.types = nullptr;
 
-			return luax_register_module(L, w);
+			return love::luax_register_module(L, w);
 		}
-
-	} // ads
-} // love
+	}
+}

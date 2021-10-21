@@ -80,44 +80,6 @@ void requestRecordingPermission();
 
 void showRecordingPermissionMissingDialog();
 
-//Ads
-void createBanner(const char *adID,const char *position);
-
-void hideBanner();
-
-void showBanner();
-
-void requestInterstitial(const char *adID);
-
-bool isInterstitialLoaded();
-
-void showInterstitial();
-
-void requestRewardedAd(const char *adID);
-
-bool isRewardedAdLoaded();
-
-void showRewardedAd();
-
-void changeEUConsent();
-
-std::string getDeviceLanguage();
-
-//For callbacks
-bool coreInterstitialError();
-
-bool coreInterstitialClosed();
-
-bool coreRewardedAdError();
-
-bool coreRewardedAdDidStop();
-
-bool coreRewardedAdDidFinish();
-
-std::string coreGetRewardType();
-
-double coreGetRewardQuantity();
-
 /**
  * Initialize Android AAsset virtual archive.
  * @return true if successful.

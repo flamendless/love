@@ -4,7 +4,7 @@ include $(CLEAR_VARS)
 LOCAL_MODULE    := liblove
 LOCAL_CFLAGS    := -g -DGL_GLEXT_PROTOTYPES -DAL_ALEXT_PROTOTYPES
 
-LOCAL_CPPFLAGS  := ${LOCAL_CFLAGS} 
+LOCAL_CPPFLAGS  := ${LOCAL_CFLAGS}
 
 # I don't think there's armeabi-v7a device without NEON instructions in 2018
 LOCAL_ARM_NEON := true
@@ -66,8 +66,6 @@ LOCAL_SRC_FILES := \
   $(wildcard ${LOCAL_PATH}/src/modules/video/theora/*.cpp) \
   $(wildcard ${LOCAL_PATH}/src/modules/window/*.cpp) \
   $(wildcard ${LOCAL_PATH}/src/modules/window/sdl/*.cpp) \
-  $(wildcard ${LOCAL_PATH}/src/modules/ads/*.cpp) \
-  $(wildcard ${LOCAL_PATH}/src/modules/ads/sdl/*.cpp) \
   $(wildcard ${LOCAL_PATH}/src/libraries/ddsparse/*.cpp) \
   $(wildcard ${LOCAL_PATH}/src/libraries/Box2D/*.cpp) \
   $(wildcard ${LOCAL_PATH}/src/libraries/Box2D/Collision/*.cpp) \
@@ -98,8 +96,19 @@ LOCAL_SRC_FILES := \
   $(wildcard ${LOCAL_PATH}/src/libraries/xxHash/*.c) \
   ))
 
+$(info $$EXT_ADMOB is [${EXT_ADMOB}])
+ifeq ($(EXT_ADMOB),yes)
+  LOCAL_SRC_FILES += \
+    $(filter-out \
+    ,$(subst $(LOCAL_PATH)/,,\
+    $(wildcard ${LOCAL_PATH}/src/libraries/admob/*.cpp) \
+    $(wildcard ${LOCAL_PATH}/src/libraries/admob/sdl/*.cpp) \
+    ))
+  LOCAL_CFLAGS += -DEXT_ADMOB
+endif
+
 LOCAL_CXXFLAGS := -std=c++11
-LOCAL_SHARED_LIBRARIES := libopenal libmpg123 
+LOCAL_SHARED_LIBRARIES := libopenal libmpg123
 LOCAL_STATIC_LIBRARIES := libvorbis libogg libtheora libmodplug libfreetype libluajit SDL2_static
 
 # $(info liblove: include dirs $(LOCAL_C_INCLUDES))

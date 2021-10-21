@@ -1,5 +1,6 @@
 /**
  * Created by bio1712 for love2d
+ * Modified and updated by flamendless
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any damages
@@ -26,22 +27,18 @@
 #include <SDL_clipboard.h>
 #include <SDL_cpuinfo.h>
 
-namespace love
+namespace admob
 {
-namespace ads
-{
-namespace sdl
-{
+	namespace ads
+	{
+		namespace sdl
+		{
+			Ads::Ads() {}
 
-Ads::Ads()
-{
+			const char *Ads::getName() const
+			{
+				return "admob.ads.sdl";
+			}
+		}
+	}
 }
-
-const char *Ads::getName() const
-{
-	return "love.ads.sdl";
-}
-
-} // sdl
-} // ads
-} // love

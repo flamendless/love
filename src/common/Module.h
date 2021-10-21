@@ -57,7 +57,9 @@ public:
 		M_TOUCH,
 		M_VIDEO,
 		M_WINDOW,
+#ifdef EXT_ADMOB
 		M_ADS,
+#endif
 		M_MAX_ENUM
 	};
 

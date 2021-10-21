@@ -1,5 +1,6 @@
 /**
  * Created by bio1712 for love2d
+ * Modified and updated by flamendless
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any damages
@@ -18,41 +19,33 @@
  * 3. This notice may not be removed or altered from any source distribution.
  **/
 
-#ifndef LOVE_ADS_SDL_ADS_H
-#define LOVE_ADS_SDL_ADS_H
+#ifndef ADMOB_ADS_SDL_ADS_H
+#define ADMOB_ADS_SDL_ADS_H
 
 // LOVE
-#include "ads/Ads.h"
+#include "admob/Ads.h"
 #include "common/EnumMap.h"
 
 // SDL
 #include <SDL_power.h>
 
-namespace love
+namespace admob
 {
-namespace ads
-{
-namespace sdl
-{
-			
-class Ads : public love::ads::Ads
-{
-public:
-				
-	Ads();
-	virtual ~Ads() {}
-				
-	// Implements Module.
-	const char *getName() const;
-				
-				
-private:
-				
-				
-}; // Ads
-	
-} // sdl
-} // ads
-} // love
+	namespace ads
+	{
+		namespace sdl
+		{
+			class Ads : public admob::ads::Ads
+			{
+			public:
+				Ads();
+				virtual ~Ads() {}
 
-#endif // LOVE_ADS_SDL_ADS_H
+				// Implements Module.
+				const char *getName() const;
+			};
+		}
+	}
+}
+
+#endif // ADMOB_ADS_SDL_ADS_H
