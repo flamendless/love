@@ -2,14 +2,6 @@
 
 This is the branch with admob integration for [love-android-admob](https://github.com/flamendless/love-android-admob)
 
-## MODIFICATION
-
-Any changes in the boot.lua, run
-```
-cd love/src/jni/love/src/scripts/
-lua auto.lua boot
-```
-
 ---
 
 LÖVE is an *awesome* framework you can use to make 2D games in Lua. It's free, open-source, and works on Windows, macOS, Linux, Android, and iOS.
