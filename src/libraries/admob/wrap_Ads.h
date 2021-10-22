@@ -30,7 +30,7 @@ namespace admob
 {
 	namespace ads
 	{
-		extern "C" LOVE_EXPORT int luaopen_love_ads(lua_State *L);
+		extern "C" LOVE_EXPORT int luaopen_admob(lua_State *L);
 	}
 }
 

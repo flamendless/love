@@ -36,7 +36,7 @@ namespace admob
 {
 	namespace ads
 	{
-		#define instance() (love::Module::getInstance<Ads>(love::Module::M_ADS))
+		#define instance() (love::Module::getInstance<Ads>(love::Module::M_ADMOB))
 
 		int w_test(lua_State *L)
 		{
@@ -195,7 +195,7 @@ namespace admob
 			{ 0, 0 }
 		};
 
-		extern "C" int luaopen_love_ads(lua_State *L)
+		extern "C" int luaopen_admob(lua_State *L)
 		{
 			Ads *instance = instance();
 			if (instance == nullptr)

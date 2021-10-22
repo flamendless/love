@@ -44,7 +44,7 @@ namespace admob
 				Ads();
 				virtual ~Ads() {}
 				// Implements Module.
-				virtual ModuleType getModuleType() const { return M_ADS; }
+				virtual ModuleType getModuleType() const { return M_ADMOB; }
 				void test(void) const;
 				void createBanner(const char *adID,const char *position);
 				void hideBanner();

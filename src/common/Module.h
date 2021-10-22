@@ -58,7 +58,7 @@ public:
 		M_VIDEO,
 		M_WINDOW,
 #ifdef EXT_ADMOB
-		M_ADS,
+		M_ADMOB,
 #endif
 		M_MAX_ENUM
 	};
