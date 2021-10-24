@@ -1,6 +1,10 @@
-# ADMOB
+# ANDROID EXTENSIONS
 
-This is the branch with admob integration for [love-android-admob](https://github.com/flamendless/love-android-admob)
+This is the branch with android extensions integration for [love-android-extensions](https://github.com/flamendless/love-android-extensions)
+
+### Currently has:
+
+* AdMob
 
 ---
 
