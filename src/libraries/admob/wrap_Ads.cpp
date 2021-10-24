@@ -199,10 +199,7 @@ namespace admob
 		{
 			Ads *instance = instance();
 			if (instance == nullptr)
-			{
-				//instance = new love::ads::sdl::Ads();
 				love::luax_catchexcept(L, [&](){ instance = new admob::ads::sdl::Ads(); });
-			}
 			else
 				instance->retain();
 
