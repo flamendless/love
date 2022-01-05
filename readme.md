@@ -22,7 +22,7 @@ If you need further help, feel free to ask on our [forums][forums], our [Discord
 Repository
 ----------
 
-We use the 'master' branch for patch development of the current major release, and therefore it should not be considered stable.
+We use the 'main' branch for patch development of the current major release, and therefore it should not be considered stable.
 There may also be a branch for the next major version in development, which is named after that version.
 
 We tag all our releases (since we started using mercurial and git), and have binary downloads available for them.
@@ -64,15 +64,26 @@ Run `platform/unix/automagic` from the repository root, then run ./configure and
 When using a source release, automagic has already been run, and the first step can be skipped.
 
 ### macOS
-Download or clone [this repository][dependencies-macos] and place the Frameworks subfolder in love's `platform/xcode/macosx/` folder.
+Download or clone [this repository][dependencies-apple] and copy, move, or symlink the `macOS/Frameworks` subfolder into love's `platform/xcode/macosx` folder.
 
 Then use the Xcode project found at `platform/xcode/love.xcodeproj` to build the `love-macosx` target.
 
 ### iOS
 Building for iOS requires macOS and Xcode.
 
-Download the `ios-libraries` zip file corresponding to the LÖVE version being used from [here][dependencies-ios],
-unzip it, and place the `include` and `libraries` subfolders into LÖVE's `platform/xcode/ios` folder.
+#### LÖVE 11.4 and newer
+Download the `love-apple-dependencies` zip file corresponding to the LÖVE version being used from the [Releases page][dependencies-ios],
+unzip it, and place the `iOS/libraries` subfolder into love's `platform/xcode/ios` folder.
+
+Or, download or clone [this repository][dependencies-apple] and copy, move, or symlink the `iOS/libraries` subfolder into love's `platform/xcode/ios` folder.
+
+Then use the Xcode project found at `platform/xcode/love.xcodeproj` to build the `love-ios` target.
+
+See `readme-iOS.rtf` for more information.
+
+#### LÖVE 11.3 and older
+Download the `ios-libraries` zip file corresponding to the LÖVE version being used from the [Releases page][dependencies-ios],
+unzip it, and place the `include` and `libraries` subfolders into love's `platform/xcode/ios` folder.
 
 Then use the Xcode project found at `platform/xcode/love.xcodeproj` to build the `love-ios` target.
 
@@ -94,16 +105,16 @@ Dependencies
 - Vorbisfile
 - Theora
 
-[site]: http://love2d.org
-[wiki]: http://love2d.org/wiki
-[forums]: http://love2d.org/forums
+[site]: https://love2d.org
+[wiki]: https://love2d.org/wiki
+[forums]: https://love2d.org/forums
 [discord]: https://discord.gg/rhUets9
 [irc]: irc://irc.oftc.net/love
-[dependencies-macos]: https://github.com/slime73/love-apple-dependencies
+[dependencies-apple]: https://github.com/love2d/love-apple-dependencies
 [dependencies-ios]: https://github.com/love2d/love/releases
 [megasource]: https://github.com/love2d/megasource
 [unstableppa]: https://launchpad.net/~bartbes/+archive/love-unstable
-[aur]: http://aur.archlinux.org/packages/love-git
+[aur]: https://aur.archlinux.org/packages/love-git
 [love-experiments]: https://github.com/slime73/love-experiments
 [codestyle]: https://love2d.org/wiki/Code_Style
 [android-repository]: https://github.com/love2d/love-android
