@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2006-2022 LOVE Development Team
+# Copyright (c) 2006-2023 LOVE Development Team
 #
 # This software is provided 'as-is', without any express or implied
 # warranty.  In no event will the authors be held liable for any damages
@@ -36,6 +36,11 @@ set(CMAKE_POSITION_INDEPENDENT_CODE TRUE)
 
 set (CMAKE_CXX_STANDARD 11)
 
+if(APPLE)
+	message(WARNING "CMake is not an officially supported build system for love on Apple platforms.")
+	message(WARNING "Use the prebuilt .app or the xcode project in platform/xcode/ instead.")
+endif()
+
 if(MSVC)
 	set(LOVE_CONSOLE_EXE_NAME lovec)
 endif()
@@ -48,12 +53,16 @@ else()
 	set(LOVE_TARGET_PLATFORM x86)
 endif()
 
-option(LOVE_JIT "Use LuaJIT" TRUE)
+if(APPLE)
+	option(LOVE_JIT "Use LuaJIT" FALSE)
+else()
+	option(LOVE_JIT "Use LuaJIT" TRUE)
+endif()
 option(LOVE_MPG123 "Use mpg123" TRUE)
 
 if(LOVE_JIT)
 	if(APPLE)
-		message(FATAL_ERROR "JIT not supported yet on Mac. Please use -DLOVE_JIT=0.")
+		message(WARNING "JIT not supported yet on Mac.")
 	endif()
 	message(STATUS "LuaJIT: Enabled")
 else()
@@ -68,6 +77,10 @@ message(STATUS "Target platform: ${LOVE_TARGET_PLATFORM}")
 
 if(POLICY CMP0072)
 	cmake_policy(SET CMP0072 NEW)
+endif()
+
+if(POLICY CMP0063)
+	cmake_policy(SET CMP0063 NEW)
 endif()
 
 find_package(OpenGL)
@@ -167,7 +180,7 @@ else()
 	if(MSVC)
 		message(FATAL_ERROR "
 It is currently only possible to build with megasource on Windows.
-Please see http://bitbucket.org/rude/megasource
+Please see https://github.com/love2d/megasource
 ")
 	endif()
 
@@ -317,6 +330,9 @@ if (APPLE)
 	set(LOVE_SRC_COMMON ${LOVE_SRC_COMMON}
 		src/common/macosx.mm
 	)
+	set(LOVE_LINK_LIBRARIES ${LOVE_LINK_LIBRARIES} objc)
+	set(LOVE_LINK_LIBRARIES ${LOVE_LINK_LIBRARIES} "-framework CoreFoundation")
+	set(LOVE_LINK_LIBRARIES ${LOVE_LINK_LIBRARIES} "-framework AppKit")
 endif()
 
 source_group("common" FILES ${LOVE_SRC_COMMON})
@@ -1608,6 +1624,7 @@ if(APPLE)
 	set(LOVE_SRC_3P_PHYSFS ${LOVE_SRC_3P_PHYSFS}
 		src/libraries/physfs/physfs_platform_apple.m
 	)
+	set(LOVE_LINK_LIBRARIES ${LOVE_LINK_LIBRARIES} "-framework IOKit")
 endif()
 
 add_library(love_3p_physfs ${LOVE_SRC_3P_PHYSFS})
@@ -1727,6 +1744,7 @@ set(LOVE_LIB_SRC
 )
 
 include_directories(
+	BEFORE
 	src
 	src/libraries
 	src/modules
@@ -1741,6 +1759,7 @@ if(MSVC)
 	set(LOVE_LINK_LIBRARIES ${LOVE_LINK_LIBRARIES}
 		ws2_32.lib
 		winmm.lib
+		dwmapi.lib
 	)
 
 	set(LOVE_RC
@@ -1750,6 +1769,7 @@ if(MSVC)
 endif()
 
 add_library(${LOVE_LIB_NAME} SHARED ${LOVE_LIB_SRC} ${LOVE_RC})
+set_target_properties(${LOVE_LIB_NAME} PROPERTIES C_VISIBILITY_PRESET hidden CXX_VISIBILITY_PRESET hidden VISIBILITY_INLINES_HIDDEN ON)
 target_link_libraries(${LOVE_LIB_NAME} ${LOVE_LINK_LIBRARIES} ${LOVE_3P})
 
 if(LOVE_EXTRA_DEPENDECIES)
@@ -1766,6 +1786,7 @@ endif()
 #
 add_executable(${LOVE_EXE_NAME} WIN32 src/love.cpp ${LOVE_RC})
 target_link_libraries(${LOVE_EXE_NAME} ${LOVE_LIB_NAME})
+set_target_properties(${LOVE_EXE_NAME} PROPERTIES C_VISIBILITY_PRESET hidden CXX_VISIBILITY_PRESET hidden VISIBILITY_INLINES_HIDDEN ON)
 
 if(MSVC)
 	add_executable(${LOVE_CONSOLE_EXE_NAME} src/love.cpp ${LOVE_RC})

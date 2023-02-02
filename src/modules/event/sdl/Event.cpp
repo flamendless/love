@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2006-2022 LOVE Development Team
+ * Copyright (c) 2006-2023 LOVE Development Team
  *
  * This software is provided 'as-is', without any express or implied
  * warranty.  In no event will the authors be held liable for any damages
@@ -627,20 +627,9 @@ Message *Event::convertWindowEvent(const SDL_Event &e)
 		if (auto audio = Module::getInstance<audio::Audio>(Module::M_AUDIO))
 		{
 			if (e.window.event == SDL_WINDOWEVENT_MINIMIZED)
-			{
-				for (auto &src : pausedSources)
-					src->release();
-				pausedSources = audio->pause();
-				for (auto &src : pausedSources)
-					src->retain();
-			}
+				audio->pauseContext();
 			else if (e.window.event == SDL_WINDOWEVENT_RESTORED)
-			{
-				audio->play(pausedSources);
-				for (auto &src : pausedSources)
-					src->release();
-				pausedSources.resize(0);
-			}
+				audio->resumeContext();
 		}
 #endif
 		break;
