@@ -42,7 +42,8 @@ namespace admob
 		{
 			//const char *text = luaL_checkstring(L, 1);
 			instance()->test();
-			return 0;
+			love::luax_pushboolean(L, true);
+			return 1;
 		}
 
 		int w_createBanner(lua_State *L)
