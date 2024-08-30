@@ -24,6 +24,7 @@
 #include "common/runtime.h"
 #include "wrap_Ads.h"
 #include "sdl/Ads.h"
+#include <android/log.h>
 
 //lua
 extern "C" {
@@ -109,12 +110,14 @@ namespace admob
 
 		int w_changeEUConsent(lua_State *L)
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "w_changeEUConsent");
 			instance()->changeEUConsent();
 			return 0;
 		}
 
 		int w_getDeviceLanguage(lua_State *L)
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "w_getDeviceLanguage");
 			std::string ret = instance()->getDeviceLanguage();
 			love::luax_pushstring(L, ret);
 			return 1;

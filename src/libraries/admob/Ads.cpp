@@ -28,6 +28,7 @@
 #include <jni.h>
 #include <android/asset_manager.h>
 #include <android/asset_manager_jni.h>
+#include <android/log.h>
 
 #if defined(LOVE_MACOSX)
 #include <CoreServices/CoreServices.h>
@@ -58,14 +59,15 @@ namespace admob
 
 		void Ads::test() const
 		{
-			printf("ADS_TEST\n");
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "Admob TEST called");
 		}
 
 		void Ads::createBanner(const char *adID,const char *position)
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "createBanner");
 			if (hasBannerBeenCreated)
 			{
-				printf("Banner has already been created!");
+				__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "Banner has already been created!");
 				return;
 			}
 
@@ -94,6 +96,7 @@ namespace admob
 
 		void Ads::hideBanner()
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "hideBanner");
 			JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
 
 			jobject activity = (jobject) SDL_AndroidGetActivity();
@@ -108,6 +111,7 @@ namespace admob
 
 		void Ads::showBanner()
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "showBanner");
 			JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
 
 			jobject activity = (jobject) SDL_AndroidGetActivity();
@@ -158,6 +162,7 @@ namespace admob
 
 		void Ads::showInterstitial()
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "showInterstitial");
 			JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
 
 			jobject activity = (jobject) SDL_AndroidGetActivity();
@@ -209,6 +214,7 @@ namespace admob
 
 		void Ads::showRewardedAd()
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "showRewardedAd");
 			JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
 
 			jobject activity = (jobject) SDL_AndroidGetActivity();
@@ -223,6 +229,7 @@ namespace admob
 
 		void Ads::changeEUConsent()
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "changeEUConsent");
 			JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
 
 			jobject activity = (jobject) SDL_AndroidGetActivity();
@@ -237,6 +244,7 @@ namespace admob
 
 		std::string Ads::getDeviceLanguage()
 		{
+			__android_log_print(ANDROID_LOG_VERBOSE, "ADMOBLOG", "getDeviceLanguage");
 			JNIEnv *env = (JNIEnv*) SDL_AndroidGetJNIEnv();
 
 			jobject activity = (jobject) SDL_AndroidGetActivity();
